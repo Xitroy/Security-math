@@ -181,4 +181,39 @@ result_task_2 = Task_2(101)
 print(result_task_1, len(result_task_1))
 print(result_task_2, (len(result_task_2)))
 print("difference:", set(result_task_1).difference(set(result_task_2)))
-print(Task_2_part_2())
+# print(Task_2_part_2())
+
+
+
+def Task_3():
+    counter = 0
+    bad_guys_counter = 0
+    bad_guys = []
+    current = 5
+    addition = 2
+    status = 1000
+    k_weak = 1
+    k_strong = 4
+    while current<500000:
+        test_lucas = Lucas_primality_test(current)
+        test_miller = isPrime(current, k_weak, fixed_a=True)
+        test_miller_strong = isPrime(current, k_strong)
+        if test_lucas and test_miller and not test_miller_strong:
+            bad_guys_counter += 1 # счетчик составных, которые прошли оба теста
+            bad_guys.append(current)
+        else:
+            current += 2
+        if status < current:
+            print(current)
+            status = status * 1.5
+    print("bad guys amount:", bad_guys_counter)
+    return bad_guys
+
+# Демонстрация результатов
+# без оптимизаций считаться будет очень долго. Надо думать об улучшениях алгоритма
+from datetime import datetime
+start_time = datetime.now()
+result = Task_3()
+print(result, len(result))
+end_time = datetime.now()
+print(end_time - start_time)
